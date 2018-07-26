@@ -7,10 +7,10 @@ import {promisify} from 'util'
 const readFile = promisify(_readFile)
 const writeFile = promisify(_writeFile)
 
-export default function native ({exports}) {
+export default function native ({exports} = {}) {
   const nativeModules = new Map()
 
-  if (exports !== null && typeof exports !== 'object') {
+  if (exports != null && typeof exports !== 'object') {
     throw new Error('exports should be an object')
   }
 
@@ -31,7 +31,7 @@ export default function native ({exports}) {
           .update(content)
           .digest('hex')
           .substring(0, 16)
-        const filename = `${hash}${extname(id)}`
+        const filename = `native-${hash}${extname(id)}`
         const names = `{${exports[id].join(', ')}}`
         const code = `const ${names} = require('./${filename}')\nexport ${names}`
         nativeModules.set(id, {filename, content, code})
