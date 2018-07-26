@@ -1,5 +1,4 @@
 import prettier from 'rollup-plugin-prettier'
-import sucrase from 'rollup-plugin-sucrase'
 
 export default {
   input: 'index.js',
@@ -9,7 +8,6 @@ export default {
   },
   external: ['path', 'fs', 'crypto', 'util'],
   plugins: [
-    sucrase({transforms: ['imports']}),
     prettier({
       parser: 'babylon',
       tabWidth: 2,
